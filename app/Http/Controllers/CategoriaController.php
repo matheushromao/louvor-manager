@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use App\Services\CategoriaService;
 
 class CategoriaController extends Controller
 {
-    // Aqui você pode adicionar métodos para lidar com as operações CRUD de categorias
-    // Vai retornar tudo que está dentro da pasta resources/views/categorias
-    // Aqui é como se fosse o findAll do Laravel, ele vai pegar todas as categorias do banco de dados e passar para a view
+    // Injetando o serviço de categoria no controlador
+    protected $categoriaService;
+    public function __construct(CategoriaService $categoriaService)
+    {
+        $this->categoriaService = $categoriaService;
+    }
+    
     public function index()
     {
          // Obtém todas as categorias do banco de dados
-        $categorias = Categoria::all();
+        $categorias = $this->categoriaService->listarCategorias();
         return view('categorias.index', compact('categorias'));
     }
 
