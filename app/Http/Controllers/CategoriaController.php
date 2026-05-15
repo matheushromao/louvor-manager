@@ -7,12 +7,11 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Aqui você pode adicionar métodos para lidar com as operações CRUD de categorias
+    // Vai retornar tudo que está dentro da pasta resources/views/categorias
     public function index()
     {
-        //
+        return view('categorias.index');
     }
 
     /**
