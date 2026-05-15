@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
+use App\Models\Categoria;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,6 +11,14 @@ Route::get('/', function () {
 
 // Criando automaticamente as rotas para o CRUD de categorias
 Route::resource('categorias', CategoriaController::class);
+
+Route::get('/teste-categoria', function () {
+
+    Categoria::create([
+        'nome' => 'Música rápida'
+    ]);
+    return 'Categoria criada com sucesso!';
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -21,4 +30,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

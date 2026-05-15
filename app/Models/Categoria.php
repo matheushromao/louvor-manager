@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     use HasFactory;
+
+    // Permite a atribuição em massa do campo 'nome'
+    protected $fillable = [
+        'nome',
+    ];
 }
