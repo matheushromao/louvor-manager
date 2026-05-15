@@ -20,6 +20,8 @@ Route::get('/teste-categoria', function () {
     return 'Categoria criada com sucesso!';
 });
 
+Route::post('/teste-store-categoria', [CategoriaController::class, 'store']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Services\CategoriaService;
+use App\Http\Requests\StoreCategoriaRequest;
 
 class CategoriaController extends Controller
 {
@@ -30,12 +31,11 @@ class CategoriaController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
+    // Utilizando o StoreCategoriaRequest para validar os dados de entrada
     public function store(Request $request)
     {
-        //
+        dd($request->valited());
     }
 
     /**
