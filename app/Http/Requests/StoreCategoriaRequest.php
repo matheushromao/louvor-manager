@@ -25,4 +25,13 @@ class StoreCategoriaRequest extends FormRequest
             'nome' => 'required|min:3|max:100',
         ];
     }
+
+    public function messages(): array
+{
+    return [
+        'nome.required' => 'O nome da categoria é obrigatório.',
+        'nome.min' => 'O nome deve ter no mínimo 3 caracteres.',
+        'nome.max' => 'O nome deve ter no máximo 100 caracteres.',
+    ];
+}
 }
