@@ -14,4 +14,10 @@ class Categoria extends Model
     protected $fillable = [
         'nome',
     ];
+
+    // Definindo a relação com as músicas
+    public function musicas()
+    {
+        return $this->hasMany(Musica::class);
+    }
 }
