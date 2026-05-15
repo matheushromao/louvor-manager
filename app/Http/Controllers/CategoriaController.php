@@ -9,9 +9,12 @@ class CategoriaController extends Controller
 {
     // Aqui você pode adicionar métodos para lidar com as operações CRUD de categorias
     // Vai retornar tudo que está dentro da pasta resources/views/categorias
+    // Aqui é como se fosse o findAll do Laravel, ele vai pegar todas as categorias do banco de dados e passar para a view
     public function index()
     {
-        return view('categorias.index');
+         // Obtém todas as categorias do banco de dados
+        $categorias = Categoria::all();
+        return view('categorias.index', compact('categorias'));
     }
 
     /**
