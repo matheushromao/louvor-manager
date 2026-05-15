@@ -17,3 +17,17 @@
 
     @endforeach
 </ul>
+
+<form
+    action="{{ route('categorias.destroy', $categoria->id) }}"
+    method="POST"
+>
+
+    @csrf
+    @method('DELETE')
+
+    <button type="submit">
+        Excluir
+    </button>
+
+</form>

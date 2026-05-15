@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Services\CategoriaService;
 use App\Http\Requests\StoreCategoriaRequest;
 
+use function Pest\Laravel\delete;
+
 class CategoriaController extends Controller
 {
     // Injetando o serviço de categoria no controlador
@@ -15,7 +17,7 @@ class CategoriaController extends Controller
     {
         $this->categoriaService = $categoriaService;
     }
-    
+
     // Método Index(FindAll) para listar todas as categorias
     public function index()
     {
@@ -32,9 +34,8 @@ class CategoriaController extends Controller
     // Método Save (store) para criar uma nova categoria
     public function store(StoreCategoriaRequest $request)
     {
-        Categoria::create($request->validated());
-        return redirect()->route('categorias.index')->
-        with('success', 'Categoria criada com sucesso!');
+        $this->categoriaService->criarCategoria($request->validated());
+        return redirect()->route('categorias.index')->with('success', 'Categoria criada com sucesso!');
     }
 
     /**
@@ -45,7 +46,7 @@ class CategoriaController extends Controller
         //
     }
 
-   // Método Edit para exibir o formulário de edição de categoria
+    // Método Edit para exibir o formulário de edição de categoria
     public function edit(Categoria $categoria)
     {
         return view('categorias.edit', compact('categoria'));
@@ -54,9 +55,8 @@ class CategoriaController extends Controller
     // método Update para atualizar uma categoria existente
     public function update(StoreCategoriaRequest $request, Categoria $categoria)
     {
-        $categoria->update($request->validated());
-        return redirect()->route('categorias.index')->
-        with('success', 'Categoria atualizada com sucesso!');
+        $this->categoriaService->atualizarCategoria($categoria, $request->validated());
+        return redirect()->route('categorias.index')->with('success', 'Categoria atualizada com sucesso!');
     }
 
     /**
@@ -64,6 +64,7 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $this->categoriaService->deletarCategoria($categoria);
+        return redirect()->route('categorias.index')->with('success', 'Categoria deletada com sucesso!');
     }
 }
