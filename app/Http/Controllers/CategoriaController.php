@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Services\CategoriaService;
 use App\Http\Requests\StoreCategoriaRequest;
 
-use function Pest\Laravel\delete;
 
 class CategoriaController extends Controller
 {
@@ -36,14 +35,6 @@ class CategoriaController extends Controller
     {
         $this->categoriaService->criarCategoria($request->validated());
         return redirect()->route('categorias.index')->with('success', 'Categoria criada com sucesso!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Categoria $categoria)
-    {
-        //
     }
 
     // Método Edit para exibir o formulário de edição de categoria

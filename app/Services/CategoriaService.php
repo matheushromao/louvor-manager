@@ -9,7 +9,7 @@ class CategoriaService
     // Método findAll para listar todas as categorias
     public function listarCategorias()
     {
-        return Categoria::all();
+        return Categoria::paginate(5);
     }
 
     // Método Create para criar uma nova categoria
