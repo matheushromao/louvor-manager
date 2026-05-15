@@ -19,13 +19,13 @@ class CategoriaService
     }
 
     // Método Update para atualizar uma categoria existente
-    public function atualizarCategoria(Categoria $categoria, array $dados)
+    public function atualizarCategoria(Categoria $categoria, array $dados): bool
     {
         return $categoria->update($dados);
     }
 
      // Método Delete para deletar uma categoria
-     public function deletarCategoria(Categoria $categoria)
+     public function deletarCategoria(Categoria $categoria): bool
      {
          return $categoria->delete();
      }

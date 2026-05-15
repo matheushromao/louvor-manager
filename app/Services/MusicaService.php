@@ -19,13 +19,13 @@ class MusicaService{
     }
 
     // Método para atualizar uma música existente
-    public function atualizarMusica(Musica $musica, array $dados)
+    public function atualizarMusica(Musica $musica, array $dados): bool
     {
         return $musica->update($dados);
     }
 
      // Método Delete para deletar uma música
-     public function deletarMusica(Musica $musica)
+     public function deletarMusica(Musica $musica): bool
      {
          return $musica->delete();
      }
