@@ -28,14 +28,16 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categorias.create');
     }
 
     
     // Utilizando o StoreCategoriaRequest para validar os dados de entrada
-    public function store(Request $request)
+    public function store(StoreCategoriaRequest $request)
     {
-        dd($request->valited());
+        Categoria::create($request->validated());
+        return redirect()->route('categorias.index')->
+        with('success', 'Categoria criada com sucesso!');
     }
 
     /**
