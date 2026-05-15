@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Musica;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
+use App\Services\MusicaService;
+use App\Http\Requests\StoreMusicaRequest;
 
 class MusicaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $musicaService;
+    public function __construct(MusicaService $musicaService)
+    {
+        $this->musicaService = $musicaService;
+    }
     public function index()
     {
-        //
+        $musicas = $this->musicaService->listarMusicas();
+        return view('musicas.index', compact('musicas'));
     }
 
     /**
@@ -20,15 +26,17 @@ class MusicaController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+        return view('musicas.create', compact('categorias'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMusicaRequest $request)
     {
-        //
+        $this->musicaService->criarMusica($request->validated());
+        return redirect()->route('musicas.index')->with('success', 'Música criada com sucesso!');
     }
 
     /**

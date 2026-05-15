@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <h1>Lista de Categorias</h1>
 
 <a href="{{ route('categorias.create') }}">
@@ -37,3 +41,5 @@
 </ul>
 
 {{ $categorias->links() }}
+
+@endsection

@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <h1>Cadastrar Categoria</h1>
 
 <form action="{{ route('categorias.store') }}" method="POST">
@@ -20,3 +23,5 @@
         Salvar
     </button>
 </form>
+
+@endsection

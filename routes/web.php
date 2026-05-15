@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\MusicaController;
 use App\Models\Categoria;
+use App\Models\Musica;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +23,8 @@ Route::get('/teste-categoria', function () {
 });
 
 Route::post('/teste-store-categoria', [CategoriaController::class, 'store']);
+
+Route::resource('musicas', MusicaController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

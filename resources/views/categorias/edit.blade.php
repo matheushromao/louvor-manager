@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <h1>Editar Categoria</h1>
 
 <form
@@ -27,3 +30,4 @@
     </button>
 
 </form>
+@endsection
