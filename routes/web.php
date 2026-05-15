@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriaController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Criando automaticamente as rotas para o CRUD de categorias
+Route::resource('categorias', CategoriaController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

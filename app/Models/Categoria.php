@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// HasFactory é usado para criar fábricas de teste para o modelo
 class Categoria extends Model
 {
     use HasFactory;
