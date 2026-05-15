@@ -16,23 +16,20 @@ class CategoriaController extends Controller
         $this->categoriaService = $categoriaService;
     }
     
+    // Método Index(FindAll) para listar todas as categorias
     public function index()
     {
-         // Obtém todas as categorias do banco de dados
         $categorias = $this->categoriaService->listarCategorias();
         return view('categorias.index', compact('categorias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Método Create para exibir o formulário de criação de categoria
     public function create()
     {
         return view('categorias.create');
     }
 
-    
-    // Utilizando o StoreCategoriaRequest para validar os dados de entrada
+    // Método Save (store) para criar uma nova categoria
     public function store(StoreCategoriaRequest $request)
     {
         Categoria::create($request->validated());
@@ -48,20 +45,18 @@ class CategoriaController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+   // Método Edit para exibir o formulário de edição de categoria
     public function edit(Categoria $categoria)
     {
-        //
+        return view('categorias.edit', compact('categoria'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Categoria $categoria)
+    // método Update para atualizar uma categoria existente
+    public function update(StoreCategoriaRequest $request, Categoria $categoria)
     {
-        //
+        $categoria->update($request->validated());
+        return redirect()->route('categorias.index')->
+        with('success', 'Categoria atualizada com sucesso!');
     }
 
     /**
