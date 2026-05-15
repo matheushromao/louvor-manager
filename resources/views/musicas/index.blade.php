@@ -11,15 +11,32 @@
 
     @foreach($musicas as $musica)
 
-        <li>
+    <li>
 
-            {{ $musica->titulo }}
+        {{ $musica->titulo }}
 
-            -
+        -
 
-            {{ $musica->categoria->nome }}
+        {{ $musica->categoria->nome }}
 
-        </li>
+        <a href="{{ route('musicas.edit', $musica->id) }}">
+            Editar
+        </a>
+
+    </li>
+
+    <form
+        action="{{ route('musicas.destroy', $musica->id) }}"
+        method="POST">
+
+        @csrf
+        @method('DELETE')
+
+        <button type="submit">
+            Excluir
+        </button>
+
+    </form>
 
     @endforeach
 

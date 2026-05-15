@@ -17,4 +17,16 @@ class MusicaService{
     {
         return Musica::create($dados);
     }
+
+    // Método para atualizar uma música existente
+    public function atualizarMusica(Musica $musica, array $dados)
+    {
+        return $musica->update($dados);
+    }
+
+     // Método Delete para deletar uma música
+     public function deletarMusica(Musica $musica)
+     {
+         return $musica->delete();
+     }
 }

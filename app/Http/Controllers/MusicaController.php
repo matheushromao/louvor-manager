@@ -21,46 +21,33 @@ class MusicaController extends Controller
         return view('musicas.index', compact('musicas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Formulário para criar uma nova música
     public function create()
     {
         $categorias = Categoria::all();
         return view('musicas.create', compact('categorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Armazenar uma nova música
     public function store(StoreMusicaRequest $request)
     {
         $this->musicaService->criarMusica($request->validated());
         return redirect()->route('musicas.index')->with('success', 'Música criada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Musica $musica)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Formulário para editar uma música existente
     public function edit(Musica $musica)
     {
-        //
+        $categorias = Categoria::all();
+
+        return view('musicas.edit', compact('musica', 'categorias'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Musica $musica)
+    // Atualizar uma música existente
+    public function update(StoreMusicaRequest $request, Musica $musica)
     {
-        //
+       $this->musicaService->atualizarMusica($musica, $request->validated());
+       return redirect()->route('musicas.index')->with('success', 'Música atualizada com sucesso!');
     }
 
     /**
@@ -68,6 +55,7 @@ class MusicaController extends Controller
      */
     public function destroy(Musica $musica)
     {
-        //
+        $this->musicaService->deletarMusica($musica);
+        return redirect()->route('musicas.index')->with('success', 'Música deletada com sucesso!');
     }
 }
