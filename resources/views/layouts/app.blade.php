@@ -7,14 +7,13 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+        content="width=device-width, initial-scale=1.0">
 
     <title>Louvor Manager</title>
 
     @vite([
-        'resources/css/app.css',
-        'resources/js/app.js'
+    'resources/css/app.css',
+    'resources/js/app.js'
     ])
 
 </head>
@@ -30,23 +29,30 @@
                 bg-gray-900
                 text-white
                 p-6
-            "
-        >
+            ">
 
             <h1 class="text-2xl font-bold mb-8">
                 Louvor Manager
             </h1>
 
             <nav class="flex flex-col gap-4">
-
+                <a
+                    href="{{ route('dashboard') }}"
+                    class="
+                      hover:bg-gray-700
+                     p-2
+                    rounded
+                    ">
+                    Dashboard
+                </a>
                 <a
                     href="{{ route('categorias.index') }}"
                     class="
                         hover:bg-gray-700
                         p-2
                         rounded
-                    "
-                >
+                    ">
+
                     Categorias
                 </a>
 
@@ -56,8 +62,7 @@
                         hover:bg-gray-700
                         p-2
                         rounded
-                    "
-                >
+                    ">
                     Músicas
                 </a>
 
@@ -77,8 +82,7 @@
                     flex
                     justify-between
                     items-center
-                "
-            >
+                ">
 
                 <h2 class="text-xl font-semibold">
                     Painel Administrativo
@@ -92,8 +96,7 @@
 
                     <form
                         action="{{ route('logout') }}"
-                        method="POST"
-                    >
+                        method="POST">
 
                         @csrf
 
@@ -106,8 +109,7 @@
                                 py-2
                                 rounded
                                 hover:bg-red-600
-                            "
-                        >
+                            ">
                             Logout
                         </button>
 
@@ -122,19 +124,18 @@
 
                 @if(session('success'))
 
-                    <div
-                        class="
+                <div
+                    class="
                             bg-green-200
                             text-green-800
                             p-4
                             rounded
                             mb-4
-                        "
-                    >
+                        ">
 
-                        {{ session('success') }}
+                    {{ session('success') }}
 
-                    </div>
+                </div>
 
                 @endif
 

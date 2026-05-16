@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MusicaController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,8 +21,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('musicas', MusicaController::class) -> except(['index']);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Rota para o dashboard, protegida por autenticação
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
