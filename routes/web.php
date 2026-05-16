@@ -1,39 +1,21 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MusicaController;
-use App\Models\Categoria;
-use App\Models\Musica;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Criando automaticamente as rotas para o CRUD de categorias
-Route::resource('categorias', CategoriaController::class);
-
-Route::get('/teste-categoria', function () {
-
-    Categoria::create([
-        'nome' => 'Música rápida'
-    ]);
-    return 'Categoria criada com sucesso!';
+// Protetendo as rotas de categorias e músicas para usuários autenticados
+Route::middleware('auth')->group(function () {
+    Route::resource('categorias', CategoriaController::class);
+    Route::resource('musicas', MusicaController::class);
 });
-
-Route::post('/teste-store-categoria', [CategoriaController::class, 'store']);
-
-Route::resource('musicas', MusicaController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__ . '/auth.php';
