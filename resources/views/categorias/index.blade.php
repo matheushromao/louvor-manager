@@ -2,44 +2,134 @@
 
 @section('content')
 
-<h1>Lista de Categorias</h1>
+<div
+    class="
+        bg-white
+        p-6
+        rounded-lg
+        shadow
+    "
+>
 
-<a href="{{ route('categorias.create') }}">
-    Nova Categoria
-</a>
+    <div
+        class="
+            flex
+            justify-between
+            items-center
+            mb-6
+        "
+    >
 
-<ul>
+        <h1 class="text-2xl font-bold">
+            Categorias
+        </h1>
 
-    @foreach($categorias as $categoria)
+        <a
+            href="{{ route('categorias.create') }}"
+            class="
+                bg-blue-500
+                text-white
+                px-4
+                py-2
+                rounded
+                hover:bg-blue-600
+            "
+        >
+            Nova Categoria
+        </a>
 
-        <li>
+    </div>
 
-            {{ $categoria->nome }}
+    <table class="w-full border-collapse">
 
-            <a href="{{ route('categorias.edit', $categoria->id) }}">
-                Editar
-            </a>
+        <thead>
 
-            <form
-                action="{{ route('categorias.destroy', $categoria->id) }}"
-                method="POST"
-            >
+            <tr class="bg-gray-100">
 
-                @csrf
-                @method('DELETE')
+                <th class="text-left p-3">
+                    Nome
+                </th>
 
-                <button type="submit">
-                    Excluir
-                </button>
+                <th class="text-left p-3">
+                    Ações
+                </th>
 
-            </form>
+            </tr>
 
-        </li>
+        </thead>
 
-    @endforeach
+        <tbody>
 
-</ul>
+            @foreach($categorias as $categoria)
 
-{{ $categorias->links() }}
+                <tr class="border-b">
+
+                    <td class="p-3">
+                        {{ $categoria->nome }}
+                    </td>
+
+                    <td
+                        class="
+                            p-3
+                            flex
+                            gap-2
+                        "
+                    >
+
+                        <a
+                            href="{{ route('categorias.edit', $categoria->id) }}"
+                            class="
+                                bg-yellow-500
+                                text-white
+                                px-3
+                                py-1
+                                rounded
+                                hover:bg-yellow-600
+                            "
+                        >
+                            Editar
+                        </a>
+
+                        <form
+                            action="{{ route('categorias.destroy', $categoria->id) }}"
+                            method="POST"
+                        >
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                type="submit"
+                                class="
+                                    bg-red-500
+                                    text-white
+                                    px-3
+                                    py-1
+                                    rounded
+                                    hover:bg-red-600
+                                "
+                            >
+                                Excluir
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+            @endforeach
+
+        </tbody>
+
+    </table>
+
+    <div class="mt-6">
+
+        {{ $categorias->links() }}
+
+    </div>
+
+</div>
 
 @endsection

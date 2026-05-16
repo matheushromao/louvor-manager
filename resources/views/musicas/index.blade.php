@@ -1,47 +1,159 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Lista de Músicas</h1>
 
-<a href="{{ route('musicas.create') }}">
-    Nova Música
-</a>
+<div
+    class="
+        bg-white
+        p-6
+        rounded-lg
+        shadow
+    "
+>
 
-<ul>
+    <div
+        class="
+            flex
+            justify-between
+            items-center
+            mb-6
+        "
+    >
 
-    @foreach($musicas as $musica)
+        <h1 class="text-2xl font-bold">
+            Músicas
+        </h1>
 
-    <li>
-
-        {{ $musica->titulo }}
-
-        -
-
-        {{ $musica->categoria->nome }}
-
-        <a href="{{ route('musicas.edit', $musica->id) }}">
-            Editar
+        <a
+            href="{{ route('musicas.create') }}"
+            class="
+                bg-blue-500
+                text-white
+                px-4
+                py-2
+                rounded
+                hover:bg-blue-600
+            "
+        >
+            Nova Música
         </a>
 
-    </li>
+    </div>
 
-    <form
-        action="{{ route('musicas.destroy', $musica->id) }}"
-        method="POST">
+    <table class="w-full border-collapse">
 
-        @csrf
-        @method('DELETE')
+        <thead>
 
-        <button type="submit">
-            Excluir
-        </button>
+            <tr class="bg-gray-100">
 
-    </form>
+                <th class="text-left p-3">
+                    Título
+                </th>
 
-    @endforeach
+                <th class="text-left p-3">
+                    Artista
+                </th>
 
-</ul>
+                <th class="text-left p-3">
+                    Tom
+                </th>
 
-{{ $musicas->links() }}
+                <th class="text-left p-3">
+                    Categoria
+                </th>
+
+                <th class="text-left p-3">
+                    Ações
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach($musicas as $musica)
+
+                <tr class="border-b">
+
+                    <td class="p-3">
+                        {{ $musica->titulo }}
+                    </td>
+
+                    <td class="p-3">
+                        {{ $musica->artista }}
+                    </td>
+
+                    <td class="p-3">
+                        {{ $musica->tom }}
+                    </td>
+
+                    <td class="p-3">
+                        {{ $musica->categoria->nome }}
+                    </td>
+
+                    <td
+                        class="
+                            p-3
+                            flex
+                            gap-2
+                        "
+                    >
+
+                        <a
+                            href="{{ route('musicas.edit', $musica->id) }}"
+                            class="
+                                bg-yellow-500
+                                text-white
+                                px-3
+                                py-1
+                                rounded
+                                hover:bg-yellow-600
+                            "
+                        >
+                            Editar
+                        </a>
+
+                        <form
+                            action="{{ route('musicas.destroy', $musica->id) }}"
+                            method="POST"
+                        >
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                type="submit"
+                                class="
+                                    bg-red-500
+                                    text-white
+                                    px-3
+                                    py-1
+                                    rounded
+                                    hover:bg-red-600
+                                "
+                            >
+                                Excluir
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+            @endforeach
+
+        </tbody>
+
+    </table>
+
+    <div class="mt-6">
+
+        {{ $musicas->links() }}
+
+    </div>
+
+</div>
 
 @endsection
