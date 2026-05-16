@@ -5,44 +5,146 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Louvor Manager</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite([
+        'resources/css/app.css',
+        'resources/js/app.js'
+    ])
 
 </head>
 
-<body>
+<body class="bg-gray-100">
 
-    <nav>
+    <div class="min-h-screen flex">
 
-        <a href="{{ route('categorias.index') }}">
-            Categorias
-        </a>
+        <!-- SIDEBAR -->
+        <aside
+            class="
+                w-64
+                bg-gray-900
+                text-white
+                p-6
+            "
+        >
 
-        |
+            <h1 class="text-2xl font-bold mb-8">
+                Louvor Manager
+            </h1>
 
-        <a href="{{ route('musicas.index') }}">
-            Músicas
-        </a>
+            <nav class="flex flex-col gap-4">
 
-        <form action="{{ route('logout') }}" method="POST">
+                <a
+                    href="{{ route('categorias.index') }}"
+                    class="
+                        hover:bg-gray-700
+                        p-2
+                        rounded
+                    "
+                >
+                    Categorias
+                </a>
 
-            @csrf
+                <a
+                    href="{{ route('musicas.index') }}"
+                    class="
+                        hover:bg-gray-700
+                        p-2
+                        rounded
+                    "
+                >
+                    Músicas
+                </a>
 
-            <button type="submit">
-                Logout
-            </button>
+            </nav>
 
-        </form>
+        </aside>
 
-    </nav>
+        <!-- CONTEÚDO -->
+        <div class="flex-1 flex flex-col">
 
-    <hr>
+            <!-- NAVBAR -->
+            <header
+                class="
+                    bg-white
+                    shadow
+                    p-4
+                    flex
+                    justify-between
+                    items-center
+                "
+            >
 
-    @yield('content')
+                <h2 class="text-xl font-semibold">
+                    Painel Administrativo
+                </h2>
+
+                <div class="flex items-center gap-4">
+
+                    <span>
+                        {{ auth()->user()->name }}
+                    </span>
+
+                    <form
+                        action="{{ route('logout') }}"
+                        method="POST"
+                    >
+
+                        @csrf
+
+                        <button
+                            type="submit"
+                            class="
+                                bg-red-500
+                                text-white
+                                px-4
+                                py-2
+                                rounded
+                                hover:bg-red-600
+                            "
+                        >
+                            Logout
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </header>
+
+            <!-- CONTEÚDO DINÂMICO -->
+            <main class="p-6">
+
+                @if(session('success'))
+
+                    <div
+                        class="
+                            bg-green-200
+                            text-green-800
+                            p-4
+                            rounded
+                            mb-4
+                        "
+                    >
+
+                        {{ session('success') }}
+
+                    </div>
+
+                @endif
+
+                @yield('content')
+
+            </main>
+
+        </div>
+
+    </div>
 
 </body>
 
