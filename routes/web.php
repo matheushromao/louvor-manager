@@ -8,10 +8,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Protetendo as rotas de categorias e músicas para usuários autenticados
+// Rotas protegidas por autenticação para usuários comuns
 Route::middleware('auth')->group(function () {
-    Route::resource('categorias', CategoriaController::class);
-    Route::resource('musicas', MusicaController::class);
+    Route::get('categorias', [CategoriaController::class, 'index']) -> name('categorias.index');
+    Route::get('musicas', [MusicaController::class, 'index']) -> name('musicas.index');
+});
+
+// Rotas protegidas por autenticação e autorização para administradores
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('categorias', CategoriaController::class)-> except(['index']);
+    Route::resource('musicas', MusicaController::class) -> except(['index']);
 });
 
 Route::get('/dashboard', function () {
