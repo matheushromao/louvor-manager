@@ -136,11 +136,14 @@
 
                 <div
                     class="
-                            bg-green-200
-                            text-green-800
-                            p-4
-                            rounded
-                            mb-4
+                        bg-green-100
+                        border
+                        border-green-400
+                        text-green-700
+                        px-4
+                        py-3
+                        rounded
+                        mb-6
                         ">
 
                     {{ session('success') }}

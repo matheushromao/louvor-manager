@@ -74,7 +74,7 @@
                 </td>
 
                 <td class="p-3">
-                    {{ $repertorio->data }}
+                    {{ \Carbon\Carbon::parse($repertorio->data)->format('d/m/Y') }}
                 </td>
 
                 <td class="p-3">
@@ -125,6 +125,7 @@
 
                         <button
                             type="submit"
+                            onclick="return confirm('Deseja realmente excluir?')"
                             class="
                                     bg-red-500
                                     text-white

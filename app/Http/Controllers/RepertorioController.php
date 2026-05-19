@@ -26,6 +26,7 @@ class RepertorioController extends Controller
     // Criando o método store para salvar o novo repertório no banco de dados
     public function store(StoreRepertorioRequest $request)
     {
+
         $repertorio = Repertorio::create([
             'nome' => $request->nome,
             'data' => $request->data,
@@ -34,27 +35,31 @@ class RepertorioController extends Controller
         $repertorio->musicas()->sync($request->musicas);
         return redirect()->route('repertorios.index')->with('success', 'Repertório criado com sucesso!');
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
+    // Criando o método edit para exibir o formulário de edição de repertório
     public function edit(Repertorio $repertorio)
     {
-        //
+        $musicas = Musica::all();
+        return view('repertorios.edit', compact('repertorio', 'musicas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Repertorio $repertorio)
+    // Criando o método update para atualizar o repertório no banco de dados
+    public function update(StoreRepertorioRequest $request, Repertorio $repertorio)
     {
-        //
+        $repertorio->update([
+            'nome' => $request->nome,
+            'data' => $request->data,
+        ]);
+
+        $repertorio->musicas()->sync($request->musicas);
+        return redirect()->route('repertorios.index')->with('success', 'Repertório atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Criando o método destroy para excluir um repertório
     public function destroy(Repertorio $repertorio)
     {
-        //
+        $repertorio->delete();
+
+        return redirect()->route('repertorios.index')->with('success', 'Repertório excluído com sucesso!');
     }
 }
