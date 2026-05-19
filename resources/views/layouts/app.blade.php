@@ -66,6 +66,16 @@
                     Músicas
                 </a>
 
+                <a
+                    href="{{ route('repertorios.index') }}"
+                    class="
+                     hover:bg-gray-700
+                     p-2
+                        rounded
+                    ">
+                    Repertórios
+                </a>
+
             </nav>
 
         </aside>

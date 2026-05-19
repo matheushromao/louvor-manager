@@ -13,4 +13,10 @@ class Musica extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+
+    // Definindo a relação com o repertório
+    public function repertorio()
+    {
+        return $this->belongsTo(Repertorio::class);
+    }
 }

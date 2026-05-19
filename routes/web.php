@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MusicaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RepertorioController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +20,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('categorias', CategoriaController::class)-> except(['index']);
     Route::resource('musicas', MusicaController::class) -> except(['index']);
+    Route::resource('repertorios', RepertorioController::class);
 });
 
 // Rota para o dashboard, protegida por autenticação
