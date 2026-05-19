@@ -17,6 +17,6 @@ class Repertorio extends Model
     // Definindo a relação com as músicas
     public function musicas()
     {
-        return $this->hasMany(Musica::class);
+        return $this->belongsTo(Musica::class);
     }
 }

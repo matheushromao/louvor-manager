@@ -19,11 +19,11 @@
             mb-6
         "
     >
-        Nova Música
+        Novo Repertório
     </h1>
 
     <form
-        action="{{ route('musicas.store') }}"
+        action="{{ route('repertorios.store') }}"
         method="POST"
     >
 
@@ -32,41 +32,12 @@
         <div class="mb-4">
 
             <label class="block mb-2 font-medium">
-                Título
+                Nome
             </label>
 
             <input
                 type="text"
-                name="titulo"
-                value="{{ old('titulo') }}"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                "
-            >
-
-            @error('titulo')
-
-                <p class="text-red-500 mt-1">
-                    {{ $message }}
-                </p>
-
-            @enderror
-
-        </div>
-
-        <div class="mb-4">
-
-            <label class="block mb-2 font-medium">
-                Artista
-            </label>
-
-            <input
-                type="text"
-                name="artista"
-                value="{{ old('artista') }}"
+                name="nome"
                 class="
                     w-full
                     border
@@ -80,13 +51,12 @@
         <div class="mb-4">
 
             <label class="block mb-2 font-medium">
-                Tom
+                Data
             </label>
 
             <input
-                type="text"
-                name="tom"
-                value="{{ old('tom') }}"
+                type="date"
+                name="data"
                 class="
                     w-full
                     border
@@ -97,33 +67,43 @@
 
         </div>
 
-        <div class="mb-4">
+        <div class="mb-6">
 
             <label class="block mb-2 font-medium">
-                Categoria
+                Músicas
             </label>
 
-            <select
-                name="categoria_id"
+            <div
                 class="
-                    w-full
                     border
                     rounded
-                    p-2
+                    p-4
+                    max-h-64
+                    overflow-y-auto
                 "
             >
 
-                @foreach($categorias as $categoria)
+                @foreach($musicas as $musica)
 
-                    <option
-                        value="{{ $categoria->id }}"
-                    >
-                        {{ $categoria->nome }}
-                    </option>
+                    <div class="mb-2">
+
+                        <label class="flex items-center gap-2">
+
+                            <input
+                                type="checkbox"
+                                name="musicas[]"
+                                value="{{ $musica->id }}"
+                            >
+
+                            {{ $musica->titulo }}
+
+                        </label>
+
+                    </div>
 
                 @endforeach
 
-            </select>
+            </div>
 
         </div>
 
