@@ -14,6 +14,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('categorias', [CategoriaController::class, 'index']) -> name('categorias.index');
     Route::get('musicas', [MusicaController::class, 'index']) -> name('musicas.index');
+    Route::get('repertorios', [RepertorioController::class, 'index']) -> name('repertorios.index');
 });
 
 // Rotas protegidas por autenticação e autorização para administradores
