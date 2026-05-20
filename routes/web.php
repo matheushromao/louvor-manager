@@ -5,6 +5,9 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MusicaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RepertorioController;
+use App\Models\Categoria;
+use App\Models\Musica;
+use App\Models\Repertorio;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +28,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // Rota para o dashboard, protegida por autenticação
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', function () {
+    $totalCategorias = Categoria::count();
+    $totalMusicas = Musica::count();
+    $totalRepertorios = Repertorio::count();
+
+    $ultimosRepertorios = Repertorio::latest()->take(5)->get();
+
+    return view('dashboard', compact('totalCategorias', 'totalMusicas', 'totalRepertorios', 'ultimosRepertorios'));
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

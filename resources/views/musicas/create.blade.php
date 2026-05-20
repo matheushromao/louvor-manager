@@ -9,23 +9,20 @@
         rounded-lg
         shadow
         max-w-2xl
-    "
->
+    ">
 
     <h1
         class="
             text-2xl
             font-bold
             mb-6
-        "
-    >
+        ">
         Nova Música
     </h1>
 
     <form
         action="{{ route('musicas.store') }}"
-        method="POST"
-    >
+        method="POST">
 
         @csrf
 
@@ -44,14 +41,13 @@
                     border
                     rounded
                     p-2
-                "
-            >
+                ">
 
             @error('titulo')
 
-                <p class="text-red-500 mt-1">
-                    {{ $message }}
-                </p>
+            <p class="text-red-500 mt-1">
+                {{ $message }}
+            </p>
 
             @enderror
 
@@ -72,8 +68,7 @@
                     border
                     rounded
                     p-2
-                "
-            >
+                ">
 
         </div>
 
@@ -92,8 +87,7 @@
                     border
                     rounded
                     p-2
-                "
-            >
+                ">
 
         </div>
 
@@ -110,16 +104,14 @@
                     border
                     rounded
                     p-2
-                "
-            >
+                ">
 
                 @foreach($categorias as $categoria)
 
-                    <option
-                        value="{{ $categoria->id }}"
-                    >
-                        {{ $categoria->nome }}
-                    </option>
+                <option
+                    value="{{ $categoria->id }}">
+                    {{ $categoria->nome }}
+                </option>
 
                 @endforeach
 
@@ -127,19 +119,9 @@
 
         </div>
 
-        <button
-            type="submit"
-            class="
-                bg-blue-500
-                text-white
-                px-4
-                py-2
-                rounded
-                hover:bg-blue-600
-            "
-        >
+        <x-button type="submit">
             Salvar
-        </button>
+        </x-button>
 
     </form>
 

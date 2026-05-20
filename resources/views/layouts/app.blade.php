@@ -9,7 +9,9 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>Louvor Manager</title>
+    <title>
+        Louvor Manager
+    </title>
 
     @vite([
     'resources/css/app.css',
@@ -20,122 +22,152 @@
 
 <body class="bg-gray-100">
 
-    <div class="min-h-screen flex">
+    <div class="flex min-h-screen">
 
         <!-- SIDEBAR -->
+
         <aside
             class="
                 w-64
                 bg-gray-900
                 text-white
-                p-6
+                flex
+                flex-col
+                justify-between
             ">
 
-            <h1 class="text-2xl font-bold mb-8">
-                Louvor Manager
-            </h1>
+            <div>
 
-            <nav class="flex flex-col gap-4">
-                <a
-                    href="{{ route('dashboard') }}"
+                <div
                     class="
-                      hover:bg-gray-700
-                     p-2
-                    rounded
+                        p-6
+                        text-2xl
+                        font-bold
+                        border-b
+                        border-gray-700
                     ">
-                    Dashboard
-                </a>
-                <a
-                    href="{{ route('categorias.index') }}"
-                    class="
-                        hover:bg-gray-700
-                        p-2
-                        rounded
-                    ">
+                    Louvor Manager
+                </div>
 
-                    Categorias
-                </a>
+                <nav class="p-4 space-y-2">
 
-                <a
-                    href="{{ route('musicas.index') }}"
-                    class="
-                        hover:bg-gray-700
-                        p-2
-                        rounded
-                    ">
-                    Músicas
-                </a>
+                    <a
+                        href="{{ route('dashboard') }}"
+                        class="
+                            block
+                            px-4
+                            py-3
+                            rounded
+                            hover:bg-gray-800
 
-                <a
-                    href="{{ route('repertorios.index') }}"
-                    class="
-                     hover:bg-gray-700
-                     p-2
-                        rounded
-                    ">
-                    Repertórios
-                </a>
+                            {{ request()->routeIs('dashboard')
+                                 ? 'bg-gray-800'
+                                  : ''
+                                }}
+                        ">
+                        Dashboard
+                    </a>
 
-            </nav>
+                    <a
+                        href="{{ route('categorias.index') }}"
+                        class="
+                            block
+                            px-4
+                            py-3
+                            rounded
+                            hover:bg-gray-800
+
+                            {{ request()->routeIs('categorias.*')
+                                ? 'bg-gray-800'
+                                : ''
+                            }}
+                        ">
+                        Categorias
+                    </a>
+
+                    <a
+                        href="{{ route('musicas.index') }}"
+                        class="
+                            block
+                            px-4
+                            py-3
+                            rounded
+                            hover:bg-gray-800
+
+                            {{ request()->routeIs('musicas.*')
+                                ? 'bg-gray-800'
+                                : ''
+                            }}
+                        ">
+                        Músicas
+                    </a>
+
+                    <a
+                        href="{{ route('repertorios.index') }}"
+                        class="
+                            block
+                            px-4
+                            py-3
+                            rounded
+                            hover:bg-gray-800
+
+                            {{ request()->routeIs('repertorios.*')
+                                ? 'bg-gray-800'
+                                : ''
+                            }}
+                        ">
+                        Repertórios
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <div
+                class="
+                    p-4
+                    border-t
+                    border-gray-700
+                ">
+
+                <div class="mb-4">
+
+                    {{ auth()->user()->name }}
+
+                </div>
+
+                <form
+                    action="{{ route('logout') }}"
+                    method="POST">
+
+                    @csrf
+
+                    <button
+                        type="submit"
+                        class="
+                            w-full
+                            bg-red-500
+                            hover:bg-red-600
+                            py-2
+                            rounded
+                        ">
+                        Logout
+                    </button>
+
+                </form>
+
+            </div>
 
         </aside>
 
         <!-- CONTEÚDO -->
-        <div class="flex-1 flex flex-col">
 
-            <!-- NAVBAR -->
-            <header
+        <main class="flex-1 p-8 overflow-y-auto">
+
+            @if(session('success'))
+
+            <div
                 class="
-                    bg-white
-                    shadow
-                    p-4
-                    flex
-                    justify-between
-                    items-center
-                ">
-
-                <h2 class="text-xl font-semibold">
-                    Painel Administrativo
-                </h2>
-
-                <div class="flex items-center gap-4">
-
-                    <span>
-                        {{ auth()->user()->name }}
-                    </span>
-
-                    <form
-                        action="{{ route('logout') }}"
-                        method="POST">
-
-                        @csrf
-
-                        <button
-                            type="submit"
-                            class="
-                                bg-red-500
-                                text-white
-                                px-4
-                                py-2
-                                rounded
-                                hover:bg-red-600
-                            ">
-                            Logout
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </header>
-
-            <!-- CONTEÚDO DINÂMICO -->
-            <main class="p-6">
-
-                @if(session('success'))
-
-                <div
-                    class="
                         bg-green-100
                         border
                         border-green-400
@@ -144,19 +176,17 @@
                         py-3
                         rounded
                         mb-6
-                        ">
+                    ">
 
-                    {{ session('success') }}
+                {{ session('success') }}
 
-                </div>
+            </div>
 
-                @endif
+            @endif
 
-                @yield('content')
+            @yield('content')
 
-            </main>
-
-        </div>
+        </main>
 
     </div>
 

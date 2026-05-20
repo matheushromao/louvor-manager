@@ -9,23 +9,20 @@
         rounded-lg
         shadow
         max-w-xl
-    "
->
+    ">
 
     <h1
         class="
             text-2xl
             font-bold
             mb-6
-        "
-    >
+        ">
         Nova Categoria
     </h1>
 
     <form
         action="{{ route('categorias.store') }}"
-        method="POST"
-    >
+        method="POST">
 
         @csrf
 
@@ -36,8 +33,7 @@
                     block
                     mb-2
                     font-medium
-                "
-            >
+                ">
                 Nome
             </label>
 
@@ -50,32 +46,21 @@
                     border
                     rounded
                     p-2
-                "
-            >
+                ">
 
             @error('nome')
 
-                <p class="text-red-500 mt-1">
-                    {{ $message }}
-                </p>
+            <p class="text-red-500 mt-1">
+                {{ $message }}
+            </p>
 
             @enderror
 
         </div>
 
-        <button
-            type="submit"
-            class="
-                bg-blue-500
-                text-white
-                px-4
-                py-2
-                rounded
-                hover:bg-blue-600
-            "
-        >
+        <x-button type="submit">
             Salvar
-        </button>
+        </x-button>
 
     </form>
 

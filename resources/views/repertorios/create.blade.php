@@ -9,23 +9,20 @@
         rounded-lg
         shadow
         max-w-2xl
-    "
->
+    ">
 
     <h1
         class="
             text-2xl
             font-bold
             mb-6
-        "
-    >
+        ">
         Novo Repertório
     </h1>
 
     <form
         action="{{ route('repertorios.store') }}"
-        method="POST"
-    >
+        method="POST">
 
         @csrf
 
@@ -43,8 +40,7 @@
                     border
                     rounded
                     p-2
-                "
-            >
+                ">
 
         </div>
 
@@ -62,8 +58,7 @@
                     border
                     rounded
                     p-2
-                "
-            >
+                ">
 
         </div>
 
@@ -80,26 +75,24 @@
                     p-4
                     max-h-64
                     overflow-y-auto
-                "
-            >
+                ">
 
                 @foreach($musicas as $musica)
 
-                    <div class="mb-2">
+                <div class="mb-2">
 
-                        <label class="flex items-center gap-2">
+                    <label class="flex items-center gap-2">
 
-                            <input
-                                type="checkbox"
-                                name="musicas[]"
-                                value="{{ $musica->id }}"
-                            >
+                        <input
+                            type="checkbox"
+                            name="musicas[]"
+                            value="{{ $musica->id }}">
 
-                            {{ $musica->titulo }}
+                        {{ $musica->titulo }}
 
-                        </label>
+                    </label>
 
-                    </div>
+                </div>
 
                 @endforeach
 
@@ -107,19 +100,9 @@
 
         </div>
 
-        <button
-            type="submit"
-            class="
-                bg-blue-500
-                text-white
-                px-4
-                py-2
-                rounded
-                hover:bg-blue-600
-            "
-        >
+        <x-button type="submit">
             Salvar
-        </button>
+        </x-button>
 
     </form>
 

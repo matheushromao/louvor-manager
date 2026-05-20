@@ -2,35 +2,118 @@
 
 @section('content')
 
-<div class="mb-8">
+<div class="space-y-8">
 
     <h1
         class="
             text-3xl
             font-bold
-            mb-2
         "
     >
         Dashboard
     </h1>
 
-    <p class="text-gray-600">
-        Bem-vindo ao sistema Louvor Manager.
-    </p>
+    <div
+        class="
+            grid
+            grid-cols-1
+            md:grid-cols-3
+            gap-6
+        "
+    >
 
-</div>
+        <div
+            class="
+                bg-white
+                p-6
+                rounded-lg
+                shadow
+            "
+        >
 
-<!-- CARDS -->
-<div
-    class="
-        grid
-        grid-cols-1
-        md:grid-cols-3
-        gap-6
-    "
->
+            <h2
+                class="
+                    text-gray-500
+                    text-sm
+                "
+            >
+                Total de Músicas
+            </h2>
 
-    <!-- CARD MÚSICAS -->
+            <p
+                class="
+                    text-4xl
+                    font-bold
+                    mt-2
+                "
+            >
+                {{ $totalMusicas }}
+            </p>
+
+        </div>
+
+        <div
+            class="
+                bg-white
+                p-6
+                rounded-lg
+                shadow
+            "
+        >
+
+            <h2
+                class="
+                    text-gray-500
+                    text-sm
+                "
+            >
+                Total de Categorias
+            </h2>
+
+            <p
+                class="
+                    text-4xl
+                    font-bold
+                    mt-2
+                "
+            >
+                {{ $totalCategorias }}
+            </p>
+
+        </div>
+
+        <div
+            class="
+                bg-white
+                p-6
+                rounded-lg
+                shadow
+            "
+        >
+
+            <h2
+                class="
+                    text-gray-500
+                    text-sm
+                "
+            >
+                Total de Repertórios
+            </h2>
+
+            <p
+                class="
+                    text-4xl
+                    font-bold
+                    mt-2
+                "
+            >
+                {{ $totalRepertorios }}
+            </p>
+
+        </div>
+
+    </div>
+
     <div
         class="
             bg-white
@@ -40,126 +123,92 @@
         "
     >
 
-        <h2 class="text-gray-500">
-            Total de Músicas
-        </h2>
-
-        <p
+        <div
             class="
-                text-4xl
-                font-bold
-                mt-2
+                flex
+                justify-between
+                items-center
+                mb-4
             "
         >
-            {{ $totalMusicas }}
-        </p>
 
-    </div>
+            <h2
+                class="
+                    text-2xl
+                    font-bold
+                "
+            >
+                Últimos Repertórios
+            </h2>
 
-    <!-- CARD CATEGORIAS -->
-    <div
-        class="
-            bg-white
-            p-6
-            rounded-lg
-            shadow
-        "
-    >
+            <a
+                href="{{ route('repertorios.index') }}"
+                class="
+                    text-blue-500
+                    hover:underline
+                "
+            >
+                Ver todos
+            </a>
 
-        <h2 class="text-gray-500">
-            Total de Categorias
-        </h2>
+        </div>
 
-        <p
-            class="
-                text-4xl
-                font-bold
-                mt-2
-            "
-        >
-            {{ $totalCategorias }}
-        </p>
+        <table class="w-full">
 
-    </div>
+            <thead>
 
-    <!-- CARD USUÁRIOS -->
-    <div
-        class="
-            bg-white
-            p-6
-            rounded-lg
-            shadow
-        "
-    >
+                <tr class="border-b">
 
-        <h2 class="text-gray-500">
-            Usuários
-        </h2>
+                    <th class="text-left py-3">
+                        Nome
+                    </th>
 
-        <p
-            class="
-                text-4xl
-                font-bold
-                mt-2
-            "
-        >
-            {{ $totalUsuarios }}
-        </p>
+                    <th class="text-left py-3">
+                        Data
+                    </th>
 
-    </div>
+                </tr>
 
-</div>
+            </thead>
 
-<!-- AÇÕES RÁPIDAS -->
-<div
-    class="
-        bg-white
-        p-6
-        rounded-lg
-        shadow
-        mt-8
-    "
->
+            <tbody>
 
-    <h2
-        class="
-            text-2xl
-            font-bold
-            mb-4
-        "
-    >
-        Ações Rápidas
-    </h2>
+                @forelse($ultimosRepertorios as $repertorio)
 
-    <div class="flex gap-4">
+                    <tr class="border-b">
 
-        <a
-            href="{{ route('musicas.create') }}"
-            class="
-                bg-blue-500
-                text-white
-                px-4
-                py-2
-                rounded
-                hover:bg-blue-600
-            "
-        >
-            Nova Música
-        </a>
+                        <td class="py-3">
+                            {{ $repertorio->nome }}
+                        </td>
 
-        <a
-            href="{{ route('categorias.create') }}"
-            class="
-                bg-green-500
-                text-white
-                px-4
-                py-2
-                rounded
-                hover:bg-green-600
-            "
-        >
-            Nova Categoria
-        </a>
+                        <td class="py-3">
+                            {{ \Carbon\Carbon::parse($repertorio->data)->format('d/m/Y') }}
+                        </td>
+
+                    </tr>
+
+                @empty
+
+                    <tr>
+
+                        <td
+                            colspan="2"
+                            class="
+                                py-6
+                                text-center
+                                text-gray-500
+                            "
+                        >
+                            Nenhum repertório encontrado.
+                        </td>
+
+                    </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
 
     </div>
 
