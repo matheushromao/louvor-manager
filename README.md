@@ -1,66 +1,272 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Louvor Manager 🎵
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web desenvolvido para gerenciamento de músicas, categorias e repertórios de louvor para igrejas e ministérios musicais.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# 📌 Sobre o Projeto
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O **Louvor Manager** foi desenvolvido com foco em organização de repertórios de culto, cadastro de músicas e gerenciamento administrativo.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+A proposta da aplicação é facilitar o controle das músicas utilizadas pelo ministério de louvor, permitindo criar repertórios de forma simples e organizada.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# 🚀 Funcionalidades
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🔐 Autenticação
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Login de usuários
+- Registro de usuários
+- Logout
+- Controle de acesso com Middleware
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 👑 Área Administrativa
 
-### Premium Partners
+Usuários administradores podem:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Categorias
+- Criar categorias
+- Editar categorias
+- Excluir categorias
+- Listar categorias
 
-## Contributing
+### Músicas
+- Criar músicas
+- Editar músicas
+- Excluir músicas
+- Listar músicas
+- Associar músicas a categorias
+- Definir tom da música
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Repertórios
+- Criar repertórios
+- Associar várias músicas ao repertório
+- Editar repertórios
+- Excluir repertórios
+- Visualizar músicas do repertório
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 🛠 Tecnologias Utilizadas
 
-## Security Vulnerabilities
+## Backend
+- PHP 8.2
+- Laravel 11
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Frontend
+- Blade
+- Tailwind CSS
+- Vite
 
-## License
+## Banco de Dados
+- MySQL
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Arquitetura
+- MVC
+- Service Layer
+- Form Requests
+- Middleware
+- Eloquent ORM
+
+---
+
+# 📂 Estrutura do Projeto
+
+```txt
+app/
+├── Http/
+│   ├── Controllers/
+│   ├── Middleware/
+│   └── Requests/
+│
+├── Models/
+│
+├── Services/
+│
+resources/
+├── views/
+│   ├── categorias/
+│   ├── musicas/
+│   ├── repertorios/
+│   ├── components/
+│   └── layouts/
+```
+
+---
+
+# 🧠 Conceitos Aplicados
+
+- CRUD Completo
+- Relacionamentos One-to-Many
+- Relacionamentos Many-to-Many
+- Validação de formulários
+- Componentização Blade
+- Paginação
+- Controle de permissões
+- Código limpo
+- Separação de responsabilidades
+
+---
+
+# 🔄 Relacionamentos do Banco
+
+## Categoria → Músicas
+
+Uma categoria pode possuir várias músicas.
+
+```txt
+Categoria 1:N Música
+```
+
+---
+
+## Repertório → Músicas
+
+Um repertório pode possuir várias músicas.
+
+Uma música pode pertencer a vários repertórios.
+
+```txt
+Repertório N:N Música
+```
+
+---
+
+# ⚙️ Como Rodar o Projeto
+
+## 1️⃣ Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/louvor-manager.git
+```
+
+---
+
+## 2️⃣ Acesse a pasta
+
+```bash
+cd louvor-manager
+```
+
+---
+
+## 3️⃣ Instale as dependências
+
+```bash
+composer install
+```
+
+```bash
+npm install
+```
+
+---
+
+## 4️⃣ Configure o .env
+
+Copie o arquivo:
+
+```bash
+cp .env.example .env
+```
+
+Configure:
+- banco de dados
+- usuário
+- senha
+
+---
+
+## 5️⃣ Gere a chave
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## 6️⃣ Rode as migrations
+
+```bash
+php artisan migrate
+```
+
+---
+
+## 7️⃣ Inicie o servidor
+
+```bash
+php artisan serve
+```
+
+---
+
+## 8️⃣ Rode o Vite
+
+```bash
+npm run dev
+```
+
+---
+
+# 📸 Telas do Sistema
+
+- Login
+- Dashboard
+- Categorias
+- Músicas
+- Repertórios
+
+---
+
+# 🔒 Controle de Permissões
+
+O sistema possui controle de acesso utilizando Middleware:
+
+- Usuário comum
+- Administrador
+
+Rotas administrativas são protegidas.
+
+---
+
+# 📈 Melhorias Futuras
+
+- Upload de cifra
+- Upload de PDF
+- Busca dinâmica
+- Filtro por tom
+- Repertório por culto
+- Tema escuro
+- Exportação PDF
+- API REST
+- Aplicativo mobile Flutter
+
+---
+
+# 📚 Aprendizados no Projeto
+
+Durante o desenvolvimento foram aplicados conceitos importantes como:
+
+- Laravel Service Layer
+- Form Requests
+- Middleware
+- Relacionamentos Eloquent
+- Organização MVC
+- Tailwind CSS
+- Estruturação limpa de código
+
+---
+
+# 👨‍💻 Autor
+
+Desenvolvido por Matheus Romão.
+
+---
+
+# 📄 Licença
+
+Este projeto está sob a licença MIT.
