@@ -50,9 +50,7 @@ class CategoriaController extends Controller
         return redirect()->route('categorias.index')->with('success', 'Categoria atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Método Destroy para deletar uma categoria
     public function destroy(Categoria $categoria)
     {
         $this->categoriaService->deletarCategoria($categoria);

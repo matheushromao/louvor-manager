@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('categorias', CategoriaController::class)-> except(['index']);
     Route::resource('musicas', MusicaController::class) -> except(['index']);
-    Route::resource('repertorios', RepertorioController::class);
+    Route::resource('repertorios', RepertorioController::class) -> except(['index']);
 });
 
 // Rota para o dashboard, protegida por autenticação
@@ -36,6 +36,6 @@ Route::get('/dashboard', function () {
     $ultimosRepertorios = Repertorio::latest()->take(5)->get();
 
     return view('dashboard', compact('totalCategorias', 'totalMusicas', 'totalRepertorios', 'ultimosRepertorios'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'admin'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
