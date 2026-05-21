@@ -36,56 +36,24 @@
 
     <style>
         :root {
-            --site-primary: {
-                    {
-                    $primaryColor
-                }
-            }
-
-            ;
-
-            --site-accent: {
-                    {
-                    $accentColor
-                }
-            }
-
-            ;
-
-            --site-background: {
-                    {
-                    $backgroundColor
-                }
-            }
-
-            ;
-
-            --site-text: {
-                    {
-                    $textColor
-                }
-            }
-
-            ;
-
-            --site-card: {
-                    {
-                    $cardColor
-                }
-            }
-
-            ;
+        --site-primary: {{ $primaryColor }};
+            --site-accent: {{ $accentColor }};
+            --site-background: {{ $backgroundColor }};
+            --site-text: {{ $textColor }};
+            --site-card: {{ $cardColor }};
             --site-button-text: #ffffff;
         }
 
         .btn-primary {
-            background: var(--site-primary);
-            color: var(--site-button-text);
+            background: var(--site-primary) !important;
+            background-color: var(--site-primary) !important;
+            color: var(--site-button-text) !important;
         }
 
         .btn-secondary {
-            background: var(--site-accent);
-            color: var(--site-button-text);
+            background: var(--site-accent) !important;
+            background-color: var(--site-accent) !important;
+            color: var(--site-button-text) !important;
         }
 
         .btn-outline {
