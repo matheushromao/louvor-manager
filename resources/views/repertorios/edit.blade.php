@@ -7,8 +7,8 @@
         bg-white
         p-6
         rounded-lg
-        shadow
-        max-w-2xl
+        shadow-md
+        max-w-3xl
     "
 >
 
@@ -25,110 +25,103 @@
     <form
         action="{{ route('repertorios.update', $repertorio->id) }}"
         method="POST"
+        class="space-y-6"
     >
 
         @csrf
         @method('PUT')
 
-        <div class="mb-4">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Nome
-            </label>
+            </x-label>
 
-            <input
+            <x-input
                 type="text"
                 name="nome"
-                value="{{ $repertorio->nome }}"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                "
-            >
+                value="{{ old('nome', $repertorio->nome) }}"
+            />
+
+            <x-error field="nome" />
 
         </div>
 
-        <div class="mb-4">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Data
-            </label>
+            </x-label>
 
-            <input
+            <x-input
                 type="date"
                 name="data"
-                value="{{ $repertorio->data }}"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                "
-            >
+                value="{{ old('data', $repertorio->data) }}"
+            />
+
+            <x-error field="data" />
 
         </div>
 
-        <div class="mb-6">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Músicas
-            </label>
+            </x-label>
 
             <div
                 class="
                     border
-                    rounded
+                    border-gray-300
+                    rounded-lg
                     p-4
-                    max-h-64
+                    max-h-72
                     overflow-y-auto
                 "
             >
 
                 @foreach($musicas as $musica)
 
-                    <div class="mb-2">
+                    <label
+                        class="
+                            flex
+                            items-center
+                            gap-2
+                            mb-3
+                        "
+                    >
 
-                        <label class="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            name="musicas[]"
+                            value="{{ $musica->id }}"
 
-                            <input
-                                type="checkbox"
-                                name="musicas[]"
-                                value="{{ $musica->id }}"
+                            @checked(
+                                $repertorio
+                                    ->musicas
+                                    ->contains($musica->id)
+                            )
+                        >
 
-                                @checked(
-                                    $repertorio
-                                        ->musicas
-                                        ->contains($musica->id)
-                                )
-                            >
+                        <span>
 
                             {{ $musica->titulo }}
 
-                        </label>
+                        </span>
 
-                    </div>
+                    </label>
 
                 @endforeach
 
             </div>
 
+            <x-error field="musicas" />
+
         </div>
 
-        <button
-            type="submit"
-            class="
-                bg-blue-500
-                text-white
-                px-4
-                py-2
-                rounded
-                hover:bg-blue-600
-            "
-        >
+        <x-button type="submit">
             Atualizar
-        </button>
+        </x-button>
 
     </form>
 

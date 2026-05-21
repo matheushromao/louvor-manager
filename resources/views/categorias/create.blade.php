@@ -7,54 +7,42 @@
         bg-white
         p-6
         rounded-lg
-        shadow
+        shadow-md
         max-w-xl
-    ">
+    "
+>
 
     <h1
         class="
             text-2xl
             font-bold
             mb-6
-        ">
+        "
+    >
         Nova Categoria
     </h1>
 
     <form
         action="{{ route('categorias.store') }}"
-        method="POST">
+        method="POST"
+        class="space-y-4"
+    >
 
         @csrf
 
-        <div class="mb-4">
+        <div>
 
-            <label
-                class="
-                    block
-                    mb-2
-                    font-medium
-                ">
+            <x-label>
                 Nome
-            </label>
+            </x-label>
 
-            <input
+            <x-input
                 type="text"
                 name="nome"
                 value="{{ old('nome') }}"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                ">
+            />
 
-            @error('nome')
-
-            <p class="text-red-500 mt-1">
-                {{ $message }}
-            </p>
-
-            @enderror
+            <x-error field="nome" />
 
         </div>
 

@@ -7,7 +7,7 @@
         bg-white
         p-6
         rounded-lg
-        shadow
+        shadow-md
         max-w-2xl
     ">
 
@@ -22,88 +22,70 @@
 
     <form
         action="{{ route('musicas.store') }}"
-        method="POST">
+        method="POST"
+        class="space-y-4">
 
         @csrf
 
-        <div class="mb-4">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Título
-            </label>
+            </x-label>
 
-            <input
+            <x-input
                 type="text"
                 name="titulo"
-                value="{{ old('titulo') }}"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                ">
+                value="{{ old('titulo') }}" />
 
-            @error('titulo')
-
-            <p class="text-red-500 mt-1">
-                {{ $message }}
-            </p>
-
-            @enderror
+            <x-error field="titulo" />
 
         </div>
 
-        <div class="mb-4">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Artista
-            </label>
+            </x-label>
 
-            <input
+            <x-input
                 type="text"
                 name="artista"
-                value="{{ old('artista') }}"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                ">
+                value="{{ old('artista') }}" />
+
+            <x-error field="artista" />
 
         </div>
 
-        <div class="mb-4">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Tom
-            </label>
+            </x-label>
 
-            <input
+            <x-input
                 type="text"
                 name="tom"
-                value="{{ old('tom') }}"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                ">
+                value="{{ old('tom') }}" />
+
+            <x-error field="tom" />
 
         </div>
 
-        <div class="mb-4">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Categoria
-            </label>
+            </x-label>
 
             <select
                 name="categoria_id"
                 class="
                     w-full
                     border
-                    rounded
-                    p-2
+                    border-gray-300
+                    rounded-lg
+                    p-3
                 ">
 
                 @foreach($categorias as $categoria)
@@ -116,6 +98,8 @@
                 @endforeach
 
             </select>
+
+            <x-error field="categoria_id" />
 
         </div>
 

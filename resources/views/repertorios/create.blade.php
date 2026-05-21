@@ -7,96 +7,108 @@
         bg-white
         p-6
         rounded-lg
-        shadow
-        max-w-2xl
-    ">
+        shadow-md
+        max-w-3xl
+    "
+>
 
     <h1
         class="
             text-2xl
             font-bold
             mb-6
-        ">
+        "
+    >
         Novo Repertório
     </h1>
 
     <form
         action="{{ route('repertorios.store') }}"
-        method="POST">
+        method="POST"
+        class="space-y-6"
+    >
 
         @csrf
 
-        <div class="mb-4">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Nome
-            </label>
+            </x-label>
 
-            <input
+            <x-input
                 type="text"
                 name="nome"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                ">
+                value="{{ old('nome') }}"
+            />
+
+            <x-error field="nome" />
 
         </div>
 
-        <div class="mb-4">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Data
-            </label>
+            </x-label>
 
-            <input
+            <x-input
                 type="date"
                 name="data"
-                class="
-                    w-full
-                    border
-                    rounded
-                    p-2
-                ">
+                value="{{ old('data') }}"
+            />
+
+            <x-error field="data" />
 
         </div>
 
-        <div class="mb-6">
+        <div>
 
-            <label class="block mb-2 font-medium">
+            <x-label>
                 Músicas
-            </label>
+            </x-label>
 
             <div
                 class="
                     border
-                    rounded
+                    border-gray-300
+                    rounded-lg
                     p-4
-                    max-h-64
+                    max-h-72
                     overflow-y-auto
-                ">
+                "
+            >
 
                 @foreach($musicas as $musica)
 
-                <div class="mb-2">
-
-                    <label class="flex items-center gap-2">
+                    <label
+                        class="
+                            flex
+                            items-center
+                            gap-2
+                            mb-3
+                        "
+                    >
 
                         <input
                             type="checkbox"
                             name="musicas[]"
-                            value="{{ $musica->id }}">
+                            value="{{ $musica->id }}"
+                        >
 
-                        {{ $musica->titulo }}
+                        <span>
+
+                            {{ $musica->titulo }}
+
+                        </span>
 
                     </label>
-
-                </div>
 
                 @endforeach
 
             </div>
+
+            <x-error field="musicas" />
 
         </div>
 

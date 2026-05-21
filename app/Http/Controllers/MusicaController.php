@@ -50,9 +50,7 @@ class MusicaController extends Controller
        return redirect()->route('musicas.index')->with('success', 'Música atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Deletar uma música
     public function destroy(Musica $musica)
     {
         $this->musicaService->deletarMusica($musica);
