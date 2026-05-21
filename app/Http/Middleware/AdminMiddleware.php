@@ -15,12 +15,13 @@ class AdminMiddleware
     ): Response {
 
         if (!Auth::check()) {
-
             abort(403);
         }
 
-        if (!Auth::user()->is_admin) {
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
 
+        if (!$user || !$user->isAdmin()) {
             abort(403);
         }
 

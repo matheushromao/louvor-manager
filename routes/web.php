@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MusicaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RepertorioController;
+use App\Http\Controllers\SettingController;
 use App\Models\Categoria;
 use App\Models\Musica;
 use App\Models\Repertorio;
@@ -15,16 +16,19 @@ Route::get('/', function () {
 
 // Rotas protegidas por autenticação para usuários comuns
 Route::middleware('auth')->group(function () {
-    Route::get('categorias', [CategoriaController::class, 'index']) -> name('categorias.index');
-    Route::get('musicas', [MusicaController::class, 'index']) -> name('musicas.index');
-    Route::get('repertorios', [RepertorioController::class, 'index']) -> name('repertorios.index');
+    Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias.index');
+    Route::get('musicas', [MusicaController::class, 'index'])->name('musicas.index');
+    Route::get('repertorios', [RepertorioController::class, 'index'])->name('repertorios.index');
 });
 
 // Rotas protegidas por autenticação e autorização para administradores
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::resource('categorias', CategoriaController::class)-> except(['index']);
-    Route::resource('musicas', MusicaController::class) -> except(['index']);
-    Route::resource('repertorios', RepertorioController::class) -> except(['index']);
+    Route::resource('categorias', CategoriaController::class)->except(['index']);
+    Route::resource('musicas', MusicaController::class)->except(['index']);
+    Route::resource('repertorios', RepertorioController::class)->except(['index']);
+    Route::resource('users', App\Http\Controllers\UserController::class)->except(['show']);
+    Route::get('/configuracoes', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::post('/configuracoes', [SettingController::class, 'update'])->name('settings.update');
 });
 
 // Rota para o dashboard, protegida por autenticação

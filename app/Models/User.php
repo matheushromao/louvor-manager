@@ -9,6 +9,10 @@ class User extends Authenticatable
 {
     use HasFactory;
 
+    public const ROLE_USER = 'user';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLES = [self::ROLE_USER, self::ROLE_ADMIN];
+
     protected $fillable = [
         'name',
         'email',
@@ -16,8 +20,13 @@ class User extends Authenticatable
         'role'
     ];
 
+    public static function roles(): array
+    {
+        return self::ROLES;
+    }
+
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return $this->role === self::ROLE_ADMIN;
     }
 }

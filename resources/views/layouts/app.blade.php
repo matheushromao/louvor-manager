@@ -51,6 +51,28 @@
 
                 <nav class="p-4 space-y-2">
 
+                    @if(auth()->user()->isAdmin())
+
+                    <a
+                        href="{{ route('users.index') }}"
+                        class="
+                             text-gray-700
+                             hover:text-blue-600
+                                ">
+                        Usuários
+                    </a>
+
+                    <a
+                        href="{{ route('settings.edit') }}"
+                        class="
+                             text-gray-700
+                             hover:text-blue-600
+                                ">
+                        Configurações
+                    </a>
+
+                    @endif
+
                     <a
                         href="{{ route('dashboard') }}"
                         class="
