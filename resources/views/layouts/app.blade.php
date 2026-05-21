@@ -18,9 +18,90 @@
     'resources/js/app.js'
     ])
 
+    @php
+    use App\Models\Setting;
+    use Illuminate\Support\Facades\Schema;
+
+    $siteSettings = [];
+    if (Schema::hasTable('settings')) {
+    $siteSettings = Setting::pluck('value', 'key')->toArray();
+    }
+
+    $primaryColor = $siteSettings['primary_color'] ?? '#0f172a';
+    $accentColor = $siteSettings['accent_color'] ?? '#0ea5e9';
+    $backgroundColor = $siteSettings['background_color'] ?? '#f8fafc';
+    $textColor = $siteSettings['text_color'] ?? '#0f172a';
+    $cardColor = $siteSettings['card_color'] ?? '#ffffff';
+    @endphp
+
+    <style>
+        :root {
+            --site-primary: {
+                    {
+                    $primaryColor
+                }
+            }
+
+            ;
+
+            --site-accent: {
+                    {
+                    $accentColor
+                }
+            }
+
+            ;
+
+            --site-background: {
+                    {
+                    $backgroundColor
+                }
+            }
+
+            ;
+
+            --site-text: {
+                    {
+                    $textColor
+                }
+            }
+
+            ;
+
+            --site-card: {
+                    {
+                    $cardColor
+                }
+            }
+
+            ;
+            --site-button-text: #ffffff;
+        }
+
+        .btn-primary {
+            background: var(--site-primary);
+            color: var(--site-button-text);
+        }
+
+        .btn-secondary {
+            background: var(--site-accent);
+            color: var(--site-button-text);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--site-primary);
+            color: var(--site-primary);
+            background: transparent;
+        }
+
+        .card-panel {
+            background: var(--site-card);
+        }
+    </style>
+
 </head>
 
-<body class="bg-gray-100">
+<body class="min-h-screen font-sans" style="background: var(--site-background); color: var(--site-text);">
 
     <div class="flex min-h-screen">
 
@@ -44,100 +125,49 @@
                         text-2xl
                         font-bold
                         border-b
-                        border-gray-700
-                    ">
-                    Louvor Manager
+                        border-white/10
+                    "
+                    style="background: linear-gradient(180deg, var(--site-primary), rgba(15, 23, 42, 0.92)); color: white;">
+                    {{ $siteSettings['site_name'] ?? 'Louvor Manager' }}
                 </div>
 
                 <nav class="p-4 space-y-2">
 
                     @if(auth()->user()->isAdmin())
+                    <a
+                        href="{{ route('dashboard') }}"
+                        class="block rounded-lg px-4 py-3 transition hover:bg-white/10 text-white {{ request()->routeIs('dashboard') ? 'bg-white/10' : '' }}">
+                        Dashboard
+                    </a>
 
                     <a
                         href="{{ route('users.index') }}"
-                        class="
-                             text-gray-700
-                             hover:text-blue-600
-                                ">
+                        class="block rounded-lg px-4 py-3 transition hover:bg-white/10 text-white {{ request()->routeIs('users.*') ? 'bg-white/10' : '' }}">
                         Usuários
                     </a>
 
                     <a
                         href="{{ route('settings.edit') }}"
-                        class="
-                             text-gray-700
-                             hover:text-blue-600
-                                ">
+                        class="block rounded-lg px-4 py-3 transition hover:bg-white/10 text-white {{ request()->routeIs('settings.*') ? 'bg-white/10' : '' }}">
                         Configurações
                     </a>
-
                     @endif
 
                     <a
-                        href="{{ route('dashboard') }}"
-                        class="
-                            block
-                            px-4
-                            py-3
-                            rounded
-                            hover:bg-gray-800
-
-                            {{ request()->routeIs('dashboard')
-                                 ? 'bg-gray-800'
-                                  : ''
-                                }}
-                        ">
-                        Dashboard
-                    </a>
-
-                    <a
                         href="{{ route('categorias.index') }}"
-                        class="
-                            block
-                            px-4
-                            py-3
-                            rounded
-                            hover:bg-gray-800
-
-                            {{ request()->routeIs('categorias.*')
-                                ? 'bg-gray-800'
-                                : ''
-                            }}
-                        ">
+                        class="block rounded-lg px-4 py-3 transition hover:bg-white/10 text-white {{ request()->routeIs('categorias.*') ? 'bg-white/10' : '' }}">
                         Categorias
                     </a>
 
                     <a
                         href="{{ route('musicas.index') }}"
-                        class="
-                            block
-                            px-4
-                            py-3
-                            rounded
-                            hover:bg-gray-800
-
-                            {{ request()->routeIs('musicas.*')
-                                ? 'bg-gray-800'
-                                : ''
-                            }}
-                        ">
+                        class="block rounded-lg px-4 py-3 transition hover:bg-white/10 text-white {{ request()->routeIs('musicas.*') ? 'bg-white/10' : '' }}">
                         Músicas
                     </a>
 
                     <a
                         href="{{ route('repertorios.index') }}"
-                        class="
-                            block
-                            px-4
-                            py-3
-                            rounded
-                            hover:bg-gray-800
-
-                            {{ request()->routeIs('repertorios.*')
-                                ? 'bg-gray-800'
-                                : ''
-                            }}
-                        ">
+                        class="block rounded-lg px-4 py-3 transition hover:bg-white/10 text-white {{ request()->routeIs('repertorios.*') ? 'bg-white/10' : '' }}">
                         Repertórios
                     </a>
 
