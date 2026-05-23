@@ -22,6 +22,7 @@ class StoreMusicaRequest extends FormRequest
             'titulo' => 'required|min:3|max:100',
             'artista' => 'required|min:3|max:100',
             'tom' => 'required|min:1|max:10',
+            'youtube_link' => 'nullable|url',
             'categoria_id' => 'required|exists:categorias,id'
         ];
     }

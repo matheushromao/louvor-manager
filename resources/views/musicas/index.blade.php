@@ -59,6 +59,10 @@
                 </th>
 
                 <th class="text-left p-3">
+                    Link do YouTube
+                </th>
+
+                <th class="text-left p-3">
                     Categoria
                 </th>
 
@@ -86,6 +90,29 @@
 
                     <td class="p-3">
                         {{ $musica->tom }}
+                    </td>
+
+                    <td class="p-3">
+                        @if($musica->youtube_link)
+                            <a
+                                href="{{ $musica->youtube_link }}"
+                                target="_blank"
+                                class="
+                                    bg-red-500
+                                    hover:bg-red-600
+                                    text-white
+                                    px-3
+                                    py-1
+                                    rounded
+                                "
+                            >
+                                YouTube
+                            </a>
+                        @else
+                            <span class="text-gray-400">
+                                Sem link
+                            </span>
+                        @endif
                     </td>
 
                     <td class="p-3">

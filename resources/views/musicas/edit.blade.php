@@ -76,6 +76,20 @@
         <div>
 
             <x-label>
+                Link YouTube
+            </x-label>
+
+            <x-input
+                type="url"
+                name="youtube_link"
+                value="{{ old('youtube_link', $musica->youtube_link ?? '') }}"
+                placeholder="https://youtube.com/..." />
+
+        </div>
+
+        <div>
+
+            <x-label>
                 Categoria
             </x-label>
 
