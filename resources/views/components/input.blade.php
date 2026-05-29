@@ -2,13 +2,20 @@
     {{ $attributes->merge([
         'class' => '
             w-full
+            rounded-xl
             border
-            border-gray-300
-            rounded-lg
-            p-3
+            border-slate-300
+            bg-white
+            px-4
+            py-3
+            text-sm
+            text-slate-900
+            transition
+            placeholder:text-slate-400
+            focus:border-[var(--site-primary)]
             focus:outline-none
             focus:ring-2
-            focus:ring-blue-500
+            focus:ring-[var(--site-primary)]/20
         '
     ]) }}
 >

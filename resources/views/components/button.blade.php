@@ -1,13 +1,17 @@
 <button
     {{ $attributes->merge([
         'class' => '
-            px-4
-            py-2
-            rounded
-            text-white
-            bg-blue-500
-            hover:bg-blue-600
-            transition
+            btn-primary
+            inline-flex
+            items-center
+            justify-center
+            gap-2
+            rounded-full
+            px-6
+            py-3
+            text-sm
+            font-semibold
+            shadow-soft
         '
     ]) }}
 >

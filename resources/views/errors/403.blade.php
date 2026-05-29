@@ -2,60 +2,15 @@
 
 @section('content')
 
-<div
-    class="
-        flex
-        flex-col
-        items-center
-        justify-center
-        py-20
-    "
->
-
-    <h1
-        class="
-            text-7xl
-            font-bold
-            text-red-500
-        "
-    >
-        403
-    </h1>
-
-    <p
-        class="
-            text-2xl
-            text-gray-700
-            mt-4
-        "
-    >
-        Acesso negado.
-    </p>
-
-    <p
-        class="
-            text-gray-500
-            mt-2
-        "
-    >
-        Você não possui permissão para acessar esta página.
-    </p>
-
+<div class="flex min-h-[60vh] flex-col items-center justify-center text-center">
+    <p class="text-7xl font-black text-red-500 sm:text-8xl">403</p>
+    <h1 class="mt-4 text-2xl font-bold text-slate-900">Acesso negado</h1>
+    <p class="mt-2 max-w-md text-sm text-slate-500">Você não possui permissão para acessar esta página.</p>
     <a
         href="{{ route('dashboard') }}"
-        class="
-            mt-6
-            bg-blue-500
-            text-white
-            px-6
-            py-3
-            rounded
-            hover:bg-blue-600
-        "
-    >
+        class="btn-primary mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-soft">
         Voltar ao Dashboard
     </a>
-
 </div>
 
 @endsection

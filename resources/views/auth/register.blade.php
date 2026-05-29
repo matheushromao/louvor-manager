@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <div class="mb-6 text-center">
+        <h1 class="text-2xl font-bold text-slate-900">Criar conta</h1>
+        <p class="mt-1 text-sm text-slate-500">Registre-se para começar a usar o sistema.</p>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -16,7 +21,7 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="mt-2 text-sm text-gray-500">
+        <div class="mt-3 rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-500 ring-1 ring-slate-200">
             O registro padrão cria um usuário comum. Apenas administradores podem alterar funções depois.
         </div>
 
@@ -43,12 +48,12 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+        <div class="mt-6 flex items-center justify-between gap-3">
+            <a class="text-sm text-slate-500 underline-offset-2 hover:text-slate-900 hover:underline" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <x-primary-button>
                 {{ __('Register') }}
             </x-primary-button>
         </div>

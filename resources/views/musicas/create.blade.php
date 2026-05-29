@@ -2,127 +2,62 @@
 
 @section('content')
 
-<div
-    class="
-        bg-white
-        p-6
-        rounded-lg
-        shadow-md
-        max-w-2xl
-    ">
+<div class="mx-auto max-w-2xl">
+    <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-900/5 sm:p-8 card-panel">
 
-    <h1
-        class="
-            text-2xl
-            font-bold
-            mb-6
-        ">
-        Nova Música
-    </h1>
-
-    <form
-        action="{{ route('musicas.store') }}"
-        method="POST"
-        class="space-y-4">
-
-        @csrf
-
-        <div>
-
-            <x-label>
-                Título
-            </x-label>
-
-            <x-input
-                type="text"
-                name="titulo"
-                value="{{ old('titulo') }}" />
-
-            <x-error field="titulo" />
-
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-slate-900">Nova Música</h1>
+            <p class="mt-1 text-sm text-slate-500">Preencha os dados para adicionar uma música ao acervo.</p>
         </div>
 
-        <div>
+        <form action="{{ route('musicas.store') }}" method="POST" class="space-y-5">
+            @csrf
 
-            <x-label>
-                Artista
-            </x-label>
+            <div>
+                <x-label>Título</x-label>
+                <x-input type="text" name="titulo" value="{{ old('titulo') }}" placeholder="Nome da música" />
+                <x-error field="titulo" />
+            </div>
 
-            <x-input
-                type="text"
-                name="artista"
-                value="{{ old('artista') }}" />
+            <div>
+                <x-label>Artista</x-label>
+                <x-input type="text" name="artista" value="{{ old('artista') }}" placeholder="Intérprete ou compositor" />
+                <x-error field="artista" />
+            </div>
 
-            <x-error field="artista" />
+            <div class="grid gap-5 sm:grid-cols-2">
+                <div>
+                    <x-label>Tom</x-label>
+                    <x-input type="text" name="tom" value="{{ old('tom') }}" placeholder="Ex: G, Am, D#" />
+                    <x-error field="tom" />
+                </div>
 
-        </div>
+                <div>
+                    <x-label>Categoria</x-label>
+                    <select
+                        name="categoria_id"
+                        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-[var(--site-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--site-primary)]/20">
+                        @foreach($categorias as $categoria)
+                            <option value="{{ $categoria->id }}" @selected(old('categoria_id') == $categoria->id)>{{ $categoria->nome }}</option>
+                        @endforeach
+                    </select>
+                    <x-error field="categoria_id" />
+                </div>
+            </div>
 
-        <div>
+            <div>
+                <x-label>Link do YouTube</x-label>
+                <x-input type="url" name="youtube_link" value="{{ old('youtube_link') }}" placeholder="https://youtube.com/..." />
+                <x-error field="youtube_link" />
+            </div>
 
-            <x-label>
-                Tom
-            </x-label>
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+                <x-button type="submit">Salvar</x-button>
+                <a href="{{ route('musicas.index') }}" class="btn-outline inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold">Cancelar</a>
+            </div>
+        </form>
 
-            <x-input
-                type="text"
-                name="tom"
-                value="{{ old('tom') }}" />
-
-            <x-error field="tom" />
-
-        </div>
-
-        <div>
-
-            <x-label>
-                Link YouTube
-            </x-label>
-
-            <x-input
-                type="url"
-                name="youtube_link"
-                value="{{ old('youtube_link', $musica->youtube_link ?? '') }}"
-                placeholder="https://youtube.com/..." />
-
-        </div>
-
-        <div>
-
-            <x-label>
-                Categoria
-            </x-label>
-
-            <select
-                name="categoria_id"
-                class="
-                    w-full
-                    border
-                    border-gray-300
-                    rounded-lg
-                    p-3
-                ">
-
-                @foreach($categorias as $categoria)
-
-                <option
-                    value="{{ $categoria->id }}">
-                    {{ $categoria->nome }}
-                </option>
-
-                @endforeach
-
-            </select>
-
-            <x-error field="categoria_id" />
-
-        </div>
-
-        <x-button type="submit">
-            Salvar
-        </x-button>
-
-    </form>
-
+    </div>
 </div>
 
 @endsection
