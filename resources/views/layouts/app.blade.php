@@ -24,6 +24,13 @@
     $textColor = $siteSettings['text_color'] ?? '#0f172a';
     $cardColor = $siteSettings['card_color'] ?? '#ffffff';
     $siteName = $siteSettings['site_name'] ?? 'Louvor Manager';
+
+    $logoUrl = Setting::fileUrl($siteSettings['logo_path'] ?? null);
+    $bgImageUrl = Setting::fileUrl($siteSettings['background_image_path'] ?? null);
+
+    $bodyStyle = $bgImageUrl
+        ? 'background-image: linear-gradient(rgba(248,250,252,0.90), rgba(248,250,252,0.94)), url(' . $bgImageUrl . '); background-size: cover; background-position: center; background-attachment: fixed; color: var(--site-text);'
+        : 'background: var(--site-background); color: var(--site-text);';
     @endphp
 
     <title>
@@ -92,7 +99,7 @@
 
 <body
     class="min-h-screen font-sans antialiased"
-    style="background: var(--site-background); color: var(--site-text);"
+    style="{{ $bodyStyle }}"
     x-data="{ sidebarOpen: false }">
 
     <!-- TOP BAR (mobile) -->
@@ -108,6 +115,9 @@
             </svg>
         </button>
 
+        @if($logoUrl)
+            <img src="{{ $logoUrl }}" alt="{{ $siteName }}" class="h-8 w-8 rounded-lg object-contain">
+        @endif
         <span class="text-lg font-bold text-slate-900">{{ $siteName }}</span>
 
     </header>
@@ -132,9 +142,13 @@
                 style="background: linear-gradient(135deg, var(--site-primary), rgba(15, 23, 42, 0.92));">
 
                 <div class="flex items-center gap-3">
-                    <span class="grid h-10 w-10 place-items-center rounded-2xl bg-white/15 text-lg font-bold">
-                        {{ mb_strtoupper(mb_substr($siteName, 0, 1)) }}
-                    </span>
+                    @if($logoUrl)
+                        <img src="{{ $logoUrl }}" alt="{{ $siteName }}" class="h-10 w-10 rounded-2xl bg-white/90 object-contain p-1">
+                    @else
+                        <span class="grid h-10 w-10 place-items-center rounded-2xl bg-white/15 text-lg font-bold">
+                            {{ mb_strtoupper(mb_substr($siteName, 0, 1)) }}
+                        </span>
+                    @endif
                     <span class="text-lg font-bold leading-tight">{{ $siteName }}</span>
                 </div>
 

@@ -38,6 +38,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Rota inicial conforme a role: admins vão ao dashboard,
+     * os demais (vocal/user) vão para os repertórios.
+     */
+    public function homeRoute(): string
+    {
+        return $this->isAdmin() ? 'dashboard' : 'repertorios.index';
+    }
+
+    /**
      * Admins e vocais podem gerenciar (criar/editar/excluir) escalas.
      */
     public function canManageEscala(): bool

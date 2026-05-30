@@ -18,6 +18,12 @@
             $accent = $settings['accent_color'] ?? '#0ea5e9';
             $background = $settings['background_color'] ?? '#f8fafc';
             $siteName = $settings['site_name'] ?? config('app.name', 'Louvor Manager');
+
+            $logoUrl = Setting::fileUrl($settings['logo_path'] ?? null);
+            $bgImageUrl = Setting::fileUrl($settings['background_image_path'] ?? null);
+            $pageStyle = $bgImageUrl
+                ? 'background-image: linear-gradient(rgba(248,250,252,0.85), rgba(255,255,255,0.92)), url(' . $bgImageUrl . '); background-size: cover; background-position: center;'
+                : '';
         @endphp
 
         <title>{{ $siteName }}</title>
@@ -43,12 +49,16 @@
         </style>
     </head>
     <body class="font-sans text-slate-900 antialiased">
-        <div class="flex min-h-screen flex-col items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.16),_transparent_40%),linear-gradient(to_bottom,_var(--site-background),_#ffffff)] px-4 py-10">
+        <div class="flex min-h-screen flex-col items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.16),_transparent_40%),linear-gradient(to_bottom,_var(--site-background),_#ffffff)] px-4 py-10" style="{{ $pageStyle }}">
 
             <a href="/" class="mb-6 flex items-center gap-3">
-                <span class="grid h-12 w-12 place-items-center rounded-2xl text-lg font-bold text-white shadow-lg" style="background: linear-gradient(135deg, var(--site-primary), var(--site-accent));">
-                    {{ mb_strtoupper(mb_substr($siteName, 0, 1)) }}
-                </span>
+                @if($logoUrl)
+                    <img src="{{ $logoUrl }}" alt="{{ $siteName }}" class="h-12 w-12 rounded-2xl bg-white object-contain p-1 shadow-lg">
+                @else
+                    <span class="grid h-12 w-12 place-items-center rounded-2xl text-lg font-bold text-white shadow-lg" style="background: linear-gradient(135deg, var(--site-primary), var(--site-accent));">
+                        {{ mb_strtoupper(mb_substr($siteName, 0, 1)) }}
+                    </span>
+                @endif
                 <span class="text-xl font-bold text-slate-900">{{ $siteName }}</span>
             </a>
 
