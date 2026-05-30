@@ -49,9 +49,22 @@ Route::get('/dashboard', function () {
     $totalMusicas = Musica::count();
     $totalRepertorios = Repertorio::count();
 
+    // Quantidade de músicas por categoria (carregada direto do banco e
+    // atualizada automaticamente conforme novos cadastros).
+    $musicasPorCategoria = Categoria::withCount('musicas')
+        ->orderByDesc('musicas_count')
+        ->orderBy('nome')
+        ->get();
+
     $ultimosRepertorios = Repertorio::latest()->take(5)->get();
 
-    return view('dashboard', compact('totalCategorias', 'totalMusicas', 'totalRepertorios', 'ultimosRepertorios'));
+    return view('dashboard', compact(
+        'totalCategorias',
+        'totalMusicas',
+        'totalRepertorios',
+        'musicasPorCategoria',
+        'ultimosRepertorios'
+    ));
 })->middleware(['auth', 'admin'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

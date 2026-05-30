@@ -50,6 +50,37 @@
 
     </div>
 
+    {{-- Músicas por categoria --}}
+    <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-900/5 card-panel">
+
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <h2 class="text-lg font-bold text-slate-900 sm:text-xl">Músicas por Categoria</h2>
+            <span class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">
+                {{ $totalMusicas }} no total
+            </span>
+        </div>
+
+        @forelse($musicasPorCategoria as $categoria)
+            @php
+                $percentual = $totalMusicas > 0 ? round(($categoria->musicas_count / $totalMusicas) * 100) : 0;
+            @endphp
+            <div class="py-3 @if(!$loop->last) border-b border-slate-100 @endif">
+                <div class="flex items-center justify-between gap-3">
+                    <span class="text-sm font-medium text-slate-700">Categoria {{ $categoria->nome }}</span>
+                    <span class="text-sm font-semibold text-slate-900">
+                        {{ $categoria->musicas_count }} {{ $categoria->musicas_count == 1 ? 'música' : 'músicas' }}
+                    </span>
+                </div>
+                <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                    <div class="h-full rounded-full bg-[var(--site-accent)]" style="width: {{ $percentual }}%"></div>
+                </div>
+            </div>
+        @empty
+            <p class="py-6 text-center text-sm text-slate-500">Nenhuma categoria cadastrada ainda.</p>
+        @endforelse
+
+    </div>
+
     <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-900/5 card-panel">
 
         <div class="mb-5 flex flex-wrap items-center justify-between gap-3">

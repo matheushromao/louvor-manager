@@ -2,7 +2,13 @@
 
 @section('content')
 
-@php $canManage = auth()->user()->isAdmin(); @endphp
+@php
+    $canManage = auth()->user()->isAdmin();
+    $busca = $filtros['busca'] ?? null;
+    $categoriaId = $filtros['categoria_id'] ?? null;
+    $temFiltros = filled($busca) || filled($categoriaId);
+    $categoriaAtiva = $categoriaId ? $categorias->firstWhere('id', (int) $categoriaId) : null;
+@endphp
 
 <div class="space-y-6">
 
@@ -22,6 +28,74 @@
             </a>
         @endif
     </div>
+
+    {{-- Barra de pesquisa e filtro por categoria --}}
+    <form method="GET" action="{{ route('musicas.index') }}" class="rounded-3xl bg-white p-4 shadow-soft ring-1 ring-slate-900/5 card-panel">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
+            <div class="flex-1">
+                <label for="busca" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Pesquisar</label>
+                <div class="relative">
+                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </span>
+                    <input
+                        type="text"
+                        name="busca"
+                        id="busca"
+                        value="{{ $busca }}"
+                        placeholder="Buscar pelo nome da música..."
+                        class="w-full rounded-xl border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-[var(--site-primary)] focus:ring-[var(--site-primary)]/30">
+                </div>
+            </div>
+
+            <div class="sm:w-56">
+                <label for="categoria_id" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Categoria</label>
+                <select
+                    name="categoria_id"
+                    id="categoria_id"
+                    class="w-full rounded-xl border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-[var(--site-primary)] focus:ring-[var(--site-primary)]/30">
+                    <option value="">Todas as categorias</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" @selected((int) $categoriaId === $categoria->id)>{{ $categoria->nome }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="flex gap-2">
+                <button
+                    type="submit"
+                    class="btn-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-soft">
+                    Filtrar
+                </button>
+                @if($temFiltros)
+                    <a
+                        href="{{ route('musicas.index') }}"
+                        class="inline-flex items-center justify-center rounded-xl bg-slate-100 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-200">
+                        Limpar
+                    </a>
+                @endif
+            </div>
+        </div>
+
+        {{-- Indicação visual dos filtros ativos --}}
+        @if($temFiltros)
+            <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
+                <span class="text-xs font-medium text-slate-500">Filtros ativos:</span>
+                @if(filled($busca))
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700 ring-1 ring-sky-200">
+                        Pesquisa: “{{ $busca }}”
+                    </span>
+                @endif
+                @if($categoriaAtiva)
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-violet-50 px-3 py-1 text-xs font-medium text-violet-700 ring-1 ring-violet-200">
+                        Categoria: {{ $categoriaAtiva->nome }}
+                    </span>
+                @endif
+            </div>
+        @endif
+    </form>
 
     <div class="rounded-3xl bg-white p-2 shadow-soft ring-1 ring-slate-900/5 sm:p-4 card-panel">
         <div class="overflow-x-auto">
@@ -89,7 +163,19 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ $canManage ? 6 : 5 }}" class="px-4 py-12 text-center text-sm text-slate-500">Nenhuma música cadastrada ainda.</td>
+                            <td colspan="{{ $canManage ? 6 : 5 }}" class="px-4 py-12 text-center text-sm text-slate-500">
+                                @if($temFiltros)
+                                    <div class="flex flex-col items-center gap-2">
+                                        <svg class="h-10 w-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                        </svg>
+                                        <p class="font-medium text-slate-600">Nenhuma música encontrada para os filtros aplicados.</p>
+                                        <a href="{{ route('musicas.index') }}" class="text-sm font-semibold text-[var(--site-accent)] hover:underline">Limpar filtros</a>
+                                    </div>
+                                @else
+                                    Nenhuma música cadastrada ainda.
+                                @endif
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

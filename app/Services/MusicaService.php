@@ -6,10 +6,29 @@ use App\Models\Musica;
 
 class MusicaService{
 
-    // Método para listar todas as músicas com a categoria associada
-    public function listarMusicas()
+    // Método para listar músicas com a categoria associada, aplicando
+    // pesquisa por título, filtro por categoria e ordenação alfabética.
+    public function listarMusicas(array $filtros = [])
     {
-        return Musica::with('categoria')->paginate(5);
+        $query = Musica::with('categoria');
+
+        // Pesquisa parcial por título, ignorando maiúsculas/minúsculas.
+        if (!empty($filtros['busca'])) {
+            $termo = mb_strtolower(trim($filtros['busca']));
+            $query->whereRaw('LOWER(titulo) LIKE ?', ['%' . $termo . '%']);
+        }
+
+        // Filtro por categoria.
+        if (!empty($filtros['categoria_id'])) {
+            $query->where('categoria_id', $filtros['categoria_id']);
+        }
+
+        // Ordenação alfabética crescente direto na consulta, com paginação
+        // que preserva os parâmetros de busca/filtro nos links.
+        return $query
+            ->orderBy('titulo')
+            ->paginate(10)
+            ->withQueryString();
     }
 
     // Método para criar uma nova música

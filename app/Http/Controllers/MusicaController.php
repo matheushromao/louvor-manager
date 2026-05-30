@@ -15,10 +15,17 @@ class MusicaController extends Controller
     {
         $this->musicaService = $musicaService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $musicas = $this->musicaService->listarMusicas();
-        return view('musicas.index', compact('musicas'));
+        // Filtros vindos da query string (pesquisa + categoria).
+        $filtros = $request->only(['busca', 'categoria_id']);
+
+        $musicas = $this->musicaService->listarMusicas($filtros);
+
+        // Categorias para o seletor do filtro, em ordem alfabética.
+        $categorias = Categoria::orderBy('nome')->get();
+
+        return view('musicas.index', compact('musicas', 'categorias', 'filtros'));
     }
 
     // Formulário para criar uma nova música
