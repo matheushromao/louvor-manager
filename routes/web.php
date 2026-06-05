@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RepertorioController;
 use App\Http\Controllers\EscalaController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SmtpSettingController;
 use App\Models\Categoria;
 use App\Models\Musica;
 use App\Models\Repertorio;
@@ -41,6 +42,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('users', App\Http\Controllers\UserController::class)->except(['show']);
     Route::get('/configuracoes', [SettingController::class, 'edit'])->name('settings.edit');
     Route::post('/configuracoes', [SettingController::class, 'update'])->name('settings.update');
+
+    // Configuração de SMTP (envio de e-mails)
+    Route::get('/configuracoes/smtp', [SmtpSettingController::class, 'edit'])->name('settings.smtp.edit');
+    Route::post('/configuracoes/smtp', [SmtpSettingController::class, 'update'])->name('settings.smtp.update');
+    Route::post('/configuracoes/smtp/teste', [SmtpSettingController::class, 'test'])->name('settings.smtp.test');
 });
 
 // Rota para o dashboard, protegida por autenticação
