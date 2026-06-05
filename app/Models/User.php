@@ -22,9 +22,35 @@ class User extends Authenticatable
         'role'
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Casts nativos: hash automático da senha (dispensa Hash::make nos
+     * controllers/services) e conversão dos timestamps para Carbon.
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'code_of_conduct_accepted_at' => 'datetime',
+        ];
+    }
+
     public static function roles(): array
     {
         return self::ROLES;
+    }
+
+    /**
+     * Indica se o usuário já aceitou as Boas Condutas de Uso vigentes.
+     */
+    public function hasAcceptedCodeOfConduct(): bool
+    {
+        return $this->code_of_conduct_accepted_at !== null;
     }
 
     public function isAdmin(): bool

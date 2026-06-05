@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    public function __construct(private readonly UserService $users)
+    {
+    }
+
     public function index(): View
     {
-        $users = User::orderBy('name')->paginate(15);
-
-        return view('users.index', compact('users'));
+        return view('users.index', [
+            'users' => $this->users->paginate(),
+        ]);
     }
 
     public function create(): View
@@ -27,21 +30,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreUserRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', Rule::in(User::roles())],
-        ]);
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-        ]);
+        $this->users->create($request->validated());
 
         return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso.');
     }
@@ -54,37 +45,21 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user): RedirectResponse
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', Rule::in(User::roles())],
-        ]);
-
-        $user->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role,
-        ]);
-
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
-        }
-
-        $user->save();
+        $this->users->update($user, $request->validated());
 
         return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
     }
 
-    public function destroy(User $user): RedirectResponse
+    public function destroy(Request $request, User $user): RedirectResponse
     {
-        if (Auth::id() === $user->id) {
+        // Regra de segurança: um administrador não pode excluir a si mesmo.
+        if ($request->user()->cannot('delete', $user)) {
             return redirect()->route('users.index')->with('error', 'Você não pode excluir o seu próprio usuário.');
         }
 
-        $user->delete();
+        $this->users->delete($user);
 
         return redirect()->route('users.index')->with('success', 'Usuário removido com sucesso.');
     }

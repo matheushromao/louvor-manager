@@ -114,6 +114,23 @@
             </div>
         </div>
 
+        <div class="space-y-4 border-t border-slate-100 pt-6">
+            <div>
+                <h2 class="text-lg font-semibold text-slate-900">Boas Condutas de Uso</h2>
+                <p class="mt-1 text-sm text-slate-500">Texto exibido para o usuário aceitar no primeiro acesso. Deixe em branco para usar o texto padrão.</p>
+            </div>
+            <div>
+                <x-label for="code_of_conduct" value="Texto do termo" />
+                <textarea
+                    id="code_of_conduct"
+                    name="code_of_conduct"
+                    rows="10"
+                    class="mt-1 block w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    placeholder="Descreva as regras de uso do sistema...">{{ old('code_of_conduct', $settings['code_of_conduct'] ?? '') }}</textarea>
+                <x-input-error :messages="$errors->get('code_of_conduct')" class="mt-2" />
+            </div>
+        </div>
+
         <div class="flex flex-wrap items-center gap-3 pt-2">
             <button type="submit" class="btn-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg shadow-slate-900/10">Salvar alterações</button>
             <a href="{{ route('dashboard') }}" class="btn-outline inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold">Voltar</a>

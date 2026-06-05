@@ -8,12 +8,19 @@ use App\Http\Controllers\RepertorioController;
 use App\Http\Controllers\EscalaController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SmtpSettingController;
+use App\Http\Controllers\CodeOfConductController;
 use App\Models\Categoria;
 use App\Models\Musica;
 use App\Models\Repertorio;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Termo de Boas Condutas: exibido/aceito por qualquer usuário autenticado.
+Route::middleware('auth')->group(function () {
+    Route::get('boas-condutas', [CodeOfConductController::class, 'show'])->name('code-of-conduct.show');
+    Route::post('boas-condutas', [CodeOfConductController::class, 'accept'])->name('code-of-conduct.accept');
 });
 
 // Rotas de visualização: qualquer usuário autenticado pode acessar

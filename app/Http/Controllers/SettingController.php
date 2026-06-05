@@ -20,6 +20,7 @@ class SettingController extends Controller
         'background_color',
         'text_color',
         'card_color',
+        'code_of_conduct',
     ];
 
     // Exibe o formulário de edição das configurações
@@ -48,6 +49,7 @@ class SettingController extends Controller
             'background_color' => ['nullable', 'string', $hexColor],
             'text_color' => ['nullable', 'string', $hexColor],
             'card_color' => ['nullable', 'string', $hexColor],
+            'code_of_conduct' => ['nullable', 'string', 'max:10000'],
             'logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
             'background_image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:4096'],
             'remove_logo' => ['nullable', 'boolean'],

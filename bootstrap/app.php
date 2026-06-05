@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => App\Http\Middleware\RoleMiddleware::class,
         ]);
 
+        // Exige o aceite das Boas Condutas em todas as rotas web autenticadas.
+        $middleware->web(append: [
+            App\Http\Middleware\EnsureCodeOfConductAccepted::class,
+        ]);
+
         // Usuários já autenticados que acessam rotas de visitante (login/registro)
         // são levados à sua página inicial conforme a role.
         $middleware->redirectUsersTo(function (Request $request) {
